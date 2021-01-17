@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.Configuration;
 using AOC.Perf.Common;
 using AOC.Perf.Model;
+using AOC.Perf.WinFormsApp.ViewModel;
 
 namespace AOC.Perf.WinFormsApp
 {
@@ -27,9 +28,9 @@ namespace AOC.Perf.WinFormsApp
 
         private void AirbusSystemConfigInit()
         {
+            ADBPathtextBox.Text = ConfigureAppConfig.GetConnectionStringsElementValue("AptDBPath").Substring(45);
             PEPPathtextBox.Text = ConfigureAppConfig.GetAppSettingsKeyValue("PEPPath");
             GSPathtextBox.Text = ConfigureAppConfig.GetAppSettingsKeyValue("GSPath");
-            ADBPathtextBox.Text = ConfigureAppConfig.GetConnectionStringsElementValue("AptDBPath").Substring(45);
             OutputPathtextBox.Text = ConfigureAppConfig.GetAppSettingsKeyValue("OutputPath");
         }
 
@@ -39,56 +40,65 @@ namespace AOC.Perf.WinFormsApp
         }
         private void RunwaystreeViewInit()
         {
-            List<AIRPORT> airports = new BLL.AIRPORT().GetModelList("");
-            foreach (AIRPORT apt in airports)
-            {
-                TreeNode nodeapt = new TreeNode();
-                nodeapt.Tag = apt.AIRPORTCODE;//把自己的id存放在该节点tag对象里
-                nodeapt.Text = apt.ICAOCODE + "(" + apt.NAME + ")";
-                RunwaystreeView.Nodes.Add(nodeapt);
-                List<LOGICRUNWAY> logicrwys = getLogicRunway(apt);
-                foreach(LOGICRUNWAY logicrwy in logicrwys)
-                {
-                    TreeNode noderwy = new TreeNode();
-                    noderwy.Tag = logicrwy.QFUCODE;//把自己的id存放在该节点tag对象里
-                    noderwy.Text ="RWY "+ logicrwy.DESIGNATION + logicrwy.IDENT;
-                    nodeapt.Nodes.Add(noderwy);
 
-                }
-               
-            }
+            //List<AIRPORT> airports = new BLL.AIRPORT().GetModelList("");
+            //foreach (AIRPORT apt in airports)
+            //{
+            //    TreeNode nodeapt = new TreeNode();
+            //    nodeapt.Tag = apt.AIRPORTCODE;//把自己的id存放在该节点tag对象里
+            //    nodeapt.Text = apt.ICAOCODE + "(" + apt.NAME + ")";
+            //    RunwaystreeView.Nodes.Add(nodeapt);
+            //    List<LOGICRUNWAY> logicrwys = getLogicRunway(apt);
+            //    foreach (LOGICRUNWAY logicrwy in logicrwys)
+            //    {
+            //        TreeNode noderwy = new TreeNode();
+            //        noderwy.Tag = logicrwy.QFUCODE;//把自己的id存放在该节点tag对象里
+            //        noderwy.Text = "RWY " + logicrwy.DESIGNATION + logicrwy.IDENT;
+            //        nodeapt.Nodes.Add(noderwy);
+
+            //    }
+
+            //}
 
 
         }
 
-        private List<LOGICRUNWAY> getLogicRunway(AIRPORT apt)
+
+        private List<Airport> GetAirports()
         {
-            List<LOGICRUNWAY> logicrwys = new List<LOGICRUNWAY>();
-            List<RUNWAY> runways = new BLL.RUNWAY().GetModelList("AIRPORTCODE=" + apt.AIRPORTCODE);
-            foreach (RUNWAY rwy in runways)
+            List<Airport> apts = JsonConverter.JsonDeserialize<List<Airport>>(JsonConverter.JsonSerialize<List<AIRPORT>>(new BLL.AIRPORT().GetModelList("")));
+            foreach (var apt in apts)
             {
-                foreach (RUNWAYTOQFUS rwytoqfu in (new BLL.RUNWAYTOQFUS().GetModelList("RUNWAYCODE=" + rwy.RUNWAYCODE)))
+                apt.RUNWAYS = GetLogicRunwaysOfAirport(apt);
+            }
+            return apts;
+
+        }
+
+        private List<Runway> GetLogicRunwaysOfAirport(Airport apt)
+        {
+            List<Runway> runways = new List<Runway>();
+            List<RUNWAY> RWYS = new BLL.RUNWAY().GetModelList("AIRPORTCODE=" + apt.AIRPORTCODE);
+            foreach (var rwy in RWYS)
+            {
+                foreach (var rwytoqfu in (new BLL.RUNWAYTOQFUS().GetModelList("RUNWAYCODE=" + rwy.RUNWAYCODE)))
                 {
-                    LOGICRUNWAY logicrwy = new LOGICRUNWAY();
-                    logicrwy = JsonConverter.JsonDeserialize<LOGICRUNWAY>(JsonConverter.JsonSerialize<QFU>(new BLL.QFU().GetModel(rwytoqfu.QFUCODE)));
-
-                    QFUREFERENCE qfureferenctemp = new BLL.QFUREFERENCE().GetModel(rwytoqfu.QFUREFCODE);
-                    logicrwy.QFUREFCODE = qfureferenctemp.QFUREFCODE;
-                    logicrwy.DESIGNATION = qfureferenctemp.DESIGNATION;
-
-                    RUNWAY rwytemp = new BLL.RUNWAY().GetModel(rwytoqfu.RUNWAYCODE);
-                    logicrwy.RUNWAYCODE = rwytemp.RUNWAYCODE;
+                    Runway logicrwy = new Runway();
+                   
+                    logicrwy = JsonConverter.JsonDeserialize<Runway>(JsonConverter.JsonSerialize<QFU>(new BLL.QFU().GetModel(rwytoqfu.QFUCODE)));
+                    logicrwy.DESIGNATION = new BLL.QFUREFERENCE().GetModel(rwytoqfu.QFUREFCODE).DESIGNATION;
+                    RUNWAY rwytemp = new BLL.RUNWAY().GetModel(rwy.RUNWAYCODE);
                     logicrwy.MAGNETICHEADING = rwytemp.MAGNETICHEADING;
                     logicrwy.MAGNETICHEADINGDATE = rwytemp.MAGNETICHEADINGDATE;
                     logicrwy.STRENGTH = rwytemp.STRENGTH;
                     logicrwy.MAXLENGTH = rwytemp.MAXLENGTH;
                     logicrwy.WIDTH = rwytemp.WIDTH;
                     logicrwy.SHOULDER = rwytemp.SHOULDER;
-                    logicrwy.AIRPORTCODE = rwytemp.AIRPORTCODE;
-                    logicrwys.Add(logicrwy);
+                    logicrwy.OBSTACLES = JsonConverter.JsonDeserialize<List<Obstacle>>(JsonConverter.JsonSerialize<List<OBSTACLES>>(new BLL.OBSTACLES().GetModelList("QFUCODE=" + rwytoqfu.QFUCODE)));
+                    runways.Add(logicrwy);
                 }
             }
-            return logicrwys;
+            return runways;
         }
 
 

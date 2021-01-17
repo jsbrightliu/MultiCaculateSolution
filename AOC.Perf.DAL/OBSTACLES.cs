@@ -226,10 +226,22 @@ namespace AOC.Perf.DAL
 				{
 					model.OBSTACLENATURECODE=int.Parse(row["OBSTACLENATURECODE"].ToString());
 				}
-					//model.DISTANCE=row["DISTANCE"].ToString();
-					//model.ELEVATION=row["ELEVATION"].ToString();
-					//model.LATERALDISTANCE=row["LATERALDISTANCE"].ToString();
-				if(row["COMMENTS"]!=null)
+                if (row["DISTANCE"] != null && row["DISTANCE"].ToString() != "")
+                {
+                    model.DISTANCE = double.Parse(row["DISTANCE"].ToString());
+                }
+                if (row["ELEVATION"] != null && row["ELEVATION"].ToString() != "")
+                {
+                    model.ELEVATION = double.Parse(row["ELEVATION"].ToString());
+                }
+                if (row["LATERALDISTANCE"] != null && row["LATERALDISTANCE"].ToString() != "")
+                {
+                    model.LATERALDISTANCE = double.Parse(row["LATERALDISTANCE"].ToString());
+                }
+                //model.DISTANCE=row["DISTANCE"].ToString();
+                //model.ELEVATION=row["ELEVATION"].ToString();
+                //model.LATERALDISTANCE=row["LATERALDISTANCE"].ToString();
+                if (row["COMMENTS"]!=null)
 				{
 					model.COMMENTS=row["COMMENTS"].ToString();
 				}

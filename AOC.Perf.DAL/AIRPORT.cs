@@ -249,8 +249,12 @@ namespace AOC.Perf.DAL
 				{
 					model.NAME=row["NAME"].ToString();
 				}
-					//model.ELEVATION=row["ELEVATION"].ToString();
-				if(row["MAGNETICVARIATION"]!=null && row["MAGNETICVARIATION"].ToString()!="")
+                if (row["ELEVATION"] != null && row["ELEVATION"].ToString() != "")
+                {
+                    model.ELEVATION = double.Parse(row["ELEVATION"].ToString());
+                }
+                //model.ELEVATION=row["ELEVATION"].ToString();
+                if (row["MAGNETICVARIATION"]!=null && row["MAGNETICVARIATION"].ToString()!="")
 				{
 					model.MAGNETICVARIATION=int.Parse(row["MAGNETICVARIATION"].ToString());
 				}

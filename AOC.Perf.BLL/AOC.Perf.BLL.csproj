@@ -44,7 +44,6 @@
     <Compile Include="AIRPORT.cs" />
     <Compile Include="APPLICABILITY.cs" />
     <Compile Include="CITY.cs" />
-    <Compile Include="DBVERSION.cs" />
     <Compile Include="ENTRYANGLE.cs" />
     <Compile Include="OBSTACLES.cs" />
     <Compile Include="OBSTACLESNATURE.cs" />

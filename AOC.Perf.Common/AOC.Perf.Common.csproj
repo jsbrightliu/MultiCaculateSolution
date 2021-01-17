@@ -78,6 +78,7 @@
     <Compile Include="INIFile.cs" />
     <Compile Include="JsonConverter.cs" />
     <Compile Include="MailSender.cs" />
+    <Compile Include="Serialization\JsonConverter.cs" />
     <Compile Include="WebMessageBox.cs" />
     <Compile Include="PageBase.cs">
       <SubType>ASPXCodeBehind</SubType>

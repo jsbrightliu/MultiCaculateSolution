@@ -30,11 +30,8 @@
         {
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.空客性能表计算 = new System.Windows.Forms.TabPage();
-            this.AircrafttypecheckedListBox = new System.Windows.Forms.CheckedListBox();
             this.button11 = new System.Windows.Forms.Button();
             this.BatchCacubutton = new System.Windows.Forms.Button();
-            this.Aircrafttypelabel = new System.Windows.Forms.Label();
-            this.RunwaystreeView = new System.Windows.Forms.TreeView();
             this.Runwayslabel = new System.Windows.Forms.Label();
             this.波音性能表计算 = new System.Windows.Forms.TabPage();
             this.系统设置 = new System.Windows.Forms.TabPage();
@@ -68,6 +65,9 @@
             this.PEPPathChangebutton = new System.Windows.Forms.Button();
             this.GSPathlabel = new System.Windows.Forms.Label();
             this.PEPPathSavebutton = new System.Windows.Forms.Button();
+            this.RunwaystreeView = new System.Windows.Forms.TreeView();
+            this.Aircrafttypelabel = new System.Windows.Forms.Label();
+            this.AircrafttypecheckedListBox = new System.Windows.Forms.CheckedListBox();
             this.tabControl1.SuspendLayout();
             this.空客性能表计算.SuspendLayout();
             this.系统设置.SuspendLayout();
@@ -105,21 +105,6 @@
             this.空客性能表计算.Text = "空客性能表计算";
             this.空客性能表计算.UseVisualStyleBackColor = true;
             // 
-            // AircrafttypecheckedListBox
-            // 
-            this.AircrafttypecheckedListBox.FormattingEnabled = true;
-            this.AircrafttypecheckedListBox.Items.AddRange(new object[] {
-            "A320-214",
-            "A320-214W",
-            "A320-232",
-            "A320-232W",
-            "A320-251W"});
-            this.AircrafttypecheckedListBox.Location = new System.Drawing.Point(596, 62);
-            this.AircrafttypecheckedListBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.AircrafttypecheckedListBox.Name = "AircrafttypecheckedListBox";
-            this.AircrafttypecheckedListBox.Size = new System.Drawing.Size(299, 324);
-            this.AircrafttypecheckedListBox.TabIndex = 6;
-            // 
             // button11
             // 
             this.button11.Location = new System.Drawing.Point(596, 452);
@@ -141,38 +126,15 @@
             this.BatchCacubutton.UseVisualStyleBackColor = true;
             this.BatchCacubutton.Click += new System.EventHandler(this.BatchCacubutton_Click);
             // 
-            // Aircrafttypelabel
-            // 
-            this.Aircrafttypelabel.AutoSize = true;
-            this.Aircrafttypelabel.Location = new System.Drawing.Point(702, 32);
-            this.Aircrafttypelabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.Aircrafttypelabel.Name = "Aircrafttypelabel";
-            this.Aircrafttypelabel.Size = new System.Drawing.Size(82, 15);
-            this.Aircrafttypelabel.TabIndex = 2;
-            this.Aircrafttypelabel.Text = "请选择机型";
-            this.Aircrafttypelabel.Click += new System.EventHandler(this.label7_Click);
-            // 
-            // RunwaystreeView
-            // 
-            this.RunwaystreeView.CheckBoxes = true;
-            this.RunwaystreeView.DrawMode = System.Windows.Forms.TreeViewDrawMode.OwnerDrawText;
-            this.RunwaystreeView.Location = new System.Drawing.Point(116, 62);
-            this.RunwaystreeView.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.RunwaystreeView.Name = "RunwaystreeView";
-            this.RunwaystreeView.Size = new System.Drawing.Size(299, 344);
-            this.RunwaystreeView.TabIndex = 1;
-            this.RunwaystreeView.AfterCheck += new System.Windows.Forms.TreeViewEventHandler(this.RunwaystreeView_AfterCheck);
-            this.RunwaystreeView.DrawNode += new System.Windows.Forms.DrawTreeNodeEventHandler(this.RunwaystreeView_DrawNode);
-            // 
             // Runwayslabel
             // 
             this.Runwayslabel.AutoSize = true;
             this.Runwayslabel.Location = new System.Drawing.Point(199, 32);
             this.Runwayslabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.Runwayslabel.Name = "Runwayslabel";
-            this.Runwayslabel.Size = new System.Drawing.Size(127, 15);
+            this.Runwayslabel.Size = new System.Drawing.Size(82, 15);
             this.Runwayslabel.TabIndex = 0;
-            this.Runwayslabel.Text = "请选择机场或跑道";
+            this.Runwayslabel.Text = "机场与跑道";
             // 
             // 波音性能表计算
             // 
@@ -520,6 +482,44 @@
             this.PEPPathSavebutton.Text = "保存";
             this.PEPPathSavebutton.UseVisualStyleBackColor = true;
             // 
+            // RunwaystreeView
+            // 
+            this.RunwaystreeView.CheckBoxes = true;
+            this.RunwaystreeView.DrawMode = System.Windows.Forms.TreeViewDrawMode.OwnerDrawText;
+            this.RunwaystreeView.Location = new System.Drawing.Point(116, 62);
+            this.RunwaystreeView.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.RunwaystreeView.Name = "RunwaystreeView";
+            this.RunwaystreeView.Size = new System.Drawing.Size(299, 344);
+            this.RunwaystreeView.TabIndex = 1;
+            this.RunwaystreeView.AfterCheck += new System.Windows.Forms.TreeViewEventHandler(this.RunwaystreeView_AfterCheck);
+            this.RunwaystreeView.DrawNode += new System.Windows.Forms.DrawTreeNodeEventHandler(this.RunwaystreeView_DrawNode);
+            // 
+            // Aircrafttypelabel
+            // 
+            this.Aircrafttypelabel.AutoSize = true;
+            this.Aircrafttypelabel.Location = new System.Drawing.Point(702, 32);
+            this.Aircrafttypelabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.Aircrafttypelabel.Name = "Aircrafttypelabel";
+            this.Aircrafttypelabel.Size = new System.Drawing.Size(82, 15);
+            this.Aircrafttypelabel.TabIndex = 2;
+            this.Aircrafttypelabel.Text = "请选择机型";
+            this.Aircrafttypelabel.Click += new System.EventHandler(this.label7_Click);
+            // 
+            // AircrafttypecheckedListBox
+            // 
+            this.AircrafttypecheckedListBox.FormattingEnabled = true;
+            this.AircrafttypecheckedListBox.Items.AddRange(new object[] {
+            "A320-214",
+            "A320-214W",
+            "A320-232",
+            "A320-232W",
+            "A320-251W"});
+            this.AircrafttypecheckedListBox.Location = new System.Drawing.Point(596, 62);
+            this.AircrafttypecheckedListBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.AircrafttypecheckedListBox.Name = "AircrafttypecheckedListBox";
+            this.AircrafttypecheckedListBox.Size = new System.Drawing.Size(299, 324);
+            this.AircrafttypecheckedListBox.TabIndex = 6;
+            // 
             // mainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
@@ -574,15 +574,15 @@
         private System.Windows.Forms.Button button9;
         private System.Windows.Forms.Button button10;
         private System.Windows.Forms.Button BatchCacubutton;
-        private System.Windows.Forms.Label Aircrafttypelabel;
-        private System.Windows.Forms.TreeView RunwaystreeView;
         private System.Windows.Forms.Label Runwayslabel;
         private System.Windows.Forms.Button button11;
-        private System.Windows.Forms.CheckedListBox AircrafttypecheckedListBox;
         private System.Windows.Forms.TextBox GSPathtextBox;
         private System.Windows.Forms.Button GSPathSavebutton;
         private System.Windows.Forms.Button GSPathChangebutton;
         private System.Windows.Forms.Label GSPathlabel;
+        private System.Windows.Forms.CheckedListBox AircrafttypecheckedListBox;
+        private System.Windows.Forms.Label Aircrafttypelabel;
+        private System.Windows.Forms.TreeView RunwaystreeView;
     }
 }
 
