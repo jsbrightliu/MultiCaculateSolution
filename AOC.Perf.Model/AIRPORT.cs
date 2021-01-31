@@ -23,7 +23,7 @@ namespace AOC.Perf.Model
 		private int? _updatedate;
 		private int? _updatetime;
 		private int? _lastupdate;
-		private int? _citycode;
+		private int _citycode;
 		private string _crc;
 		/// <summary>
 		/// 
@@ -132,7 +132,7 @@ namespace AOC.Perf.Model
 		/// <summary>
 		/// 
 		/// </summary>
-		public int? CITYCODE
+		public int CITYCODE
 		{
 			set{ _citycode=value;}
 			get{return _citycode;}
